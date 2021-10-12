@@ -4,36 +4,42 @@ import Button from "./Button";
 class DiceThrow extends Component {
 
     state = {
-        flag: false,
+        counter: 1,
         results: []
       };
     
       // setState = this.setState.bind(this);
     
       addDice = (event) => {
-        this.setState({ flag: false });
-        // this.setState({ diceNumber: ++this.state.diceNumber });
-        this.setState({
-          results: [...this.state.results, Math.floor(Math.random() * 6 + 1)]
-        });
+          if (this.state.counter < 19) {
+              this.setState({ counter: ++this.state.counter });
+          }
+
+        // this.setState({
+        //   results: [...this.state.results, Math.floor(Math.random() * 6 + 1)]
+        // });
       };
     
       removeDice = () => {
-        // this.setState({ diceNumber: --this.state.diceNumber });
-        const copyState = [...this.state.results];
-        copyState.pop();
-        this.setState({
-          results: copyState
-        });
+          if (this.state.counter > 1) {
+              this.setState({ counter: --this.state.counter });
+          }
+
+        // const copyState = [...this.state.results];
+        // copyState.pop();
+        // this.setState({
+        //   results: copyState
+        // });
       };
 
       throwDice = (event) => {
+          this.setState({results: []})
         // this.setState({ result: Math.floor(Math.random() * 6 + 1) });
         // this.setState((prevState) => ({
         //   results: [...prevState.results, Math.floor(Math.random() * 6 + 1)]
         // }));
         // console.log(this.state.results);
-        this.setState({ flag: true });
+
       };
 
 
@@ -41,13 +47,13 @@ class DiceThrow extends Component {
         return (
             <div className="main-wrapper">
             <p>
-              Throwing <span>{this.state.results.length}</span> dice(s)
+              Throwing <span>{this.state.counter}</span> dice(s)
             </p>
-            {this.state.flag
+            {/* {this.state.flag
               ? this.state.results.map((item, index) => {
                   return <div key={index}>{item}</div>;
                 })
-              : null}
+              : null} */}
             {/* <p>{this.state.result}</p> */}
             <div>
               <Button text="Add" func={this.addDice} />
